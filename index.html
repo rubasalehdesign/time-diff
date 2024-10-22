@@ -45,6 +45,9 @@
             font-size: 18px;
             margin-right: 10px;
         }
+        .converted-times {
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
@@ -72,20 +75,39 @@
         <button onclick="convertUserTime()">Convert Time</button>
     </div>
 
+    <!-- Section to display converted user time in different timezones -->
+    <div class="converted-times">
+        <h2>Here's your time in:</h2>
+        <div class="time-container">
+            <div class="clock">
+                <h2>Beirut 🇱🇧</h2>
+                <div class="time" id="converted-beirut-time"></div>
+            </div>
+            <div class="clock">
+                <h2>Indonesia 🇮🇩</h2>
+                <div class="time" id="converted-indonesia-time"></div>
+            </div>
+            <div class="clock">
+                <h2>Toronto 🇨🇦</h2>
+                <div class="time" id="converted-toronto-time"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Function to update live times for each location, showing only hours and minutes
         function updateTimes() {
-            const options = { timeZone: 'Asia/Beirut', hour: '2-digit', minute: '2-digit', hour12: false };
-            const beirutTime = new Date().toLocaleTimeString('en-US', options);
-            document.getElementById('beirut-time').innerHTML = beirutTime;
+            const timeZones = {
+                'beirut-time': 'Asia/Beirut',
+                'indonesia-time': 'Asia/Jakarta',
+                'toronto-time': 'America/Toronto'
+            };
 
-            options.timeZone = 'Asia/Jakarta';
-            const indonesiaTime = new Date().toLocaleTimeString('en-US', options);
-            document.getElementById('indonesia-time').innerHTML = indonesiaTime;
-
-            options.timeZone = 'America/Toronto';
-            const torontoTime = new Date().toLocaleTimeString('en-US', options);
-            document.getElementById('toronto-time').innerHTML = torontoTime;
+            Object.keys(timeZones).forEach(id => {
+                const options = { timeZone: timeZones[id], hour: '2-digit', minute: '2-digit', hour12: false };
+                const time = new Date().toLocaleTimeString('en-US', options);
+                document.getElementById(id).innerHTML = time;
+            });
         }
 
         // Function to convert a user-input time and display it in each time zone
@@ -101,19 +123,17 @@
             let userDate = new Date();
             userDate.setHours(hours, minutes, 0);
 
-            const options = { hour: '2-digit', minute: '2-digit', hour12: false };
+            const timeZones = {
+                'converted-beirut-time': 'Asia/Beirut',
+                'converted-indonesia-time': 'Asia/Jakarta',
+                'converted-toronto-time': 'America/Toronto'
+            };
 
-            // Beirut time
-            const beirutDate = new Date(userDate.toLocaleString('en-US', { timeZone: 'Asia/Beirut' }));
-            document.getElementById('beirut-time').innerHTML = beirutDate.toLocaleTimeString('en-US', options);
-
-            // Indonesian time
-            const indonesiaDate = new Date(userDate.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
-            document.getElementById('indonesia-time').innerHTML = indonesiaDate.toLocaleTimeString('en-US', options);
-
-            // Toronto time
-            const torontoDate = new Date(userDate.toLocaleString('en-US', { timeZone: 'America/Toronto' }));
-            document.getElementById('toronto-time').innerHTML = torontoDate.toLocaleTimeString('en-US', options);
+            Object.keys(timeZones).forEach(id => {
+                const convertedDate = new Date(userDate.toLocaleString('en-US', { timeZone: timeZones[id] }));
+                const options = { hour: '2-digit', minute: '2-digit', hour12: false };
+                document.getElementById(id).innerHTML = convertedDate.toLocaleTimeString('en-US', options);
+            });
         }
 
         // Update the times every second for live time display
