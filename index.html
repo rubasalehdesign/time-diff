@@ -6,47 +6,74 @@
     <title>World Clocks: Beirut 🇱🇧, Indonesia 🇮🇩, Toronto 🇨🇦</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a2e;
+            color: #e5e5e5;
             text-align: center;
             padding: 50px;
         }
         .time-container {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             margin-top: 20px;
         }
         .clock {
-            margin: 0 20px;
+            background-color: #222831;
+            margin: 10px;
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            width: 200px;
+            border: 1px solid #393e46;
+            border-radius: 12px;
+            width: 220px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
         }
-        h2 {
-            color: #333;
+        .clock:hover {
+            transform: translateY(-10px);
+        }
+        h1, h2 {
+            color: #00adb5;
         }
         .time {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
+            color: #ffffff;
         }
         .input-container {
-            margin-top: 30px;
+            margin-top: 40px;
         }
-        .input-container input {
+        .input-container input, .input-container button {
             font-size: 16px;
             padding: 10px;
-            margin-right: 10px;
+            margin: 10px;
+            border-radius: 8px;
+            border: 1px solid #00adb5;
+            background-color: #393e46;
+            color: #e5e5e5;
+            outline: none;
+            transition: background-color 0.3s, border 0.3s;
+        }
+        .input-container input:focus {
+            background-color: #222831;
+            border-color: #00adb5;
         }
         .input-container button {
-            font-size: 16px;
-            padding: 10px;
+            cursor: pointer;
         }
-        .input-container label {
-            font-size: 18px;
-            margin-right: 10px;
+        .input-container button:hover {
+            background-color: #00adb5;
+            color: #222831;
         }
         .converted-times {
-            margin-top: 40px;
+            margin-top: 50px;
+        }
+        @media (max-width: 768px) {
+            .time-container {
+                flex-direction: column;
+            }
+            .clock {
+                width: 90%;
+            }
         }
     </style>
 </head>
